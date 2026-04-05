@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
+import { ExperienceTimeline } from './components/ExperienceTimeline'
 import { Navigation } from './components/Navigation'
 import { LeetCodeStats, LEETCODE_PROFILE_URL } from './components/LeetCodeStats'
 import { ProjectsSection } from './components/ProjectsSection'
 import { TechStackSection } from './components/TechStackSection'
 
-const SITE_URL = 'https://nil68657.github.io/nilanjan.github.io/'
+const EMAIL = 'nilanjan.9325@gmail.com'
+const MAILTO = `mailto:${EMAIL}`
 
 function useReveal() {
   const ref = useRef(null)
@@ -48,7 +50,7 @@ export default function App() {
       <Navigation menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
       <div className="page" ref={pageRef}>
-        <header id="top" className="profile-page">
+        <header className="profile-page">
           <div className="section-inner readme-inner">
             <div className="github-readme-card fade-up">
               <div className="profile-header">
@@ -57,18 +59,8 @@ export default function App() {
                 </div>
                 <div className="profile-header__text">
                   <h1 className="profile-name">Nilanjan Chatterjee</h1>
-                  <p className="profile-handle">
-                    <a
-                      href="https://github.com/nil68657"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="readme-link"
-                    >
-                      nil68657
-                    </a>
-                  </p>
                   <p className="profile-tagline">
-                    Sr. Engineering Manager @ AMD · Data &amp; ML · AWS &amp; GCP certified
+                    Data engineering leader &amp; architect · Advanced Micro Devices (AMD) · AWS &amp; GCP
                   </p>
                   <ul className="profile-meta" aria-label="Profile details">
                     <li>United States</li>
@@ -79,7 +71,7 @@ export default function App() {
                         rel="noopener noreferrer"
                         className="readme-link"
                       >
-                        LinkedIn in/nil68657
+                        LinkedIn
                       </a>
                     </li>
                     <li>12+ years</li>
@@ -98,18 +90,20 @@ export default function App() {
                 Intro
               </h3>
               <p className="readme-body fade-up">
-                I run engineering for data and ML platforms at AMD—roadmaps, people, and enough time in the
-                code and design docs to keep things honest.
+                A seasoned Data Engineering leader and architect working for Advanced Micro Devices (AMD) with
+                12 years of extensive experience in rolling out 0–1 turn-key products and features across
+                Fintech, Semiconductor, and Telecom domains.
               </p>
 
               <h3 id="about" className="readme-h3">
                 About me
               </h3>
               <p className="readme-body fade-up">
-                Most of my work is cloud data systems: ingestion, batch and streaming jobs, warehouses, and
-                the glue around training and serving models. I care about operational detail—monitoring,
-                cost, and clear handoffs—not slide decks. AWS and GCP certified; I still write SQL and Python
-                when it helps the team move.
+                I am Nilanjan Chatterjee, a seasoned Data Engineering leader and architect working for Advanced
+                Micro Devices (AMD) with 12 years of extensive experience in rolling out 0–1 turn-key
+                products and features across Fintech, Semiconductor, and Telecom domains. With over 12 years
+                of experience across Data Engineering, Data Science, and Gen AI pipeline and MLOps, I assist
+                business operationalise their data and ML strategy and find data driven solutions to problems.
               </p>
 
               <div className="profile-actions">
@@ -118,9 +112,6 @@ export default function App() {
                 </a>
                 <a className="btn-github" href="#projects">
                   Pinned
-                </a>
-                <a className="btn-github" href={SITE_URL}>
-                  Site
                 </a>
               </div>
             </div>
@@ -133,38 +124,7 @@ export default function App() {
               Experience
             </h2>
 
-            <div className="exp-timeline">
-              <article className="github-readme-card exp-card fade-up">
-                <div className="exp-header">
-                  <span className="exp-company">AMD</span>
-                  <span className="exp-role">Senior Engineering Manager — Data &amp; ML</span>
-                  <div className="exp-meta">
-                    <span className="exp-period cyan">Current</span>
-                    <span className="exp-location">United States</span>
-                  </div>
-                </div>
-                <ul className="exp-achievements cyan">
-                  <li>Own planning and delivery for analytics, experimentation, and ML platform work.</li>
-                  <li>Work with infra and product on reliability, cost, and release cadence.</li>
-                  <li>Hire and grow engineers; keep standards practical.</li>
-                </ul>
-              </article>
-
-              <article className="github-readme-card exp-card fade-up">
-                <div className="exp-header">
-                  <span className="exp-company">Earlier</span>
-                  <span className="exp-role">Data platforms, cloud architecture, ML engineering</span>
-                  <div className="exp-meta">
-                    <span className="exp-period violet">Prior roles</span>
-                  </div>
-                </div>
-                <ul className="exp-achievements violet">
-                  <li>Built lakehouse-style storage and pipelines on AWS and GCP.</li>
-                  <li>Shipped batch and streaming systems with tests, alerts, and SLOs.</li>
-                  <li>Led teams using Python, JVM languages, and SQL.</li>
-                </ul>
-              </article>
-            </div>
+            <ExperienceTimeline />
           </div>
         </section>
 
@@ -202,14 +162,16 @@ export default function App() {
                 >
                   LeetCode
                 </a>
-                <a className="social-chip social-chip--muted" href={SITE_URL}>
-                  This site
-                </a>
               </div>
               <LeetCodeStats />
-              <p className="site-url-hint">
-                <a href={SITE_URL} className="readme-link">
-                  {SITE_URL}
+              <p className="contact-email-row">
+                <a
+                  href={MAILTO}
+                  className="btn-github btn-github--primary"
+                  title={EMAIL}
+                  aria-label={`Email ${EMAIL}`}
+                >
+                  Email me
                 </a>
               </p>
             </div>
@@ -255,12 +217,12 @@ export default function App() {
                 LeetCode
               </a>
             </div>
-            <p className="footer-copy">
-              © {new Date().getFullYear()} Nilanjan Chatterjee ·{' '}
-              <a href={SITE_URL} className="readme-link readme-link--on-dark">
-                {SITE_URL}
+            <p className="footer-email">
+              <a href={MAILTO} className="footer-link" title={EMAIL} aria-label={`Email ${EMAIL}`}>
+                Email me
               </a>
             </p>
+            <p className="footer-copy">© {new Date().getFullYear()} Nilanjan Chatterjee</p>
           </div>
         </footer>
       </div>
