@@ -1,11 +1,11 @@
 import { useCallback } from 'react'
 
 const LINKS = [
-  { href: '#top', label: 'About' },
+  { href: '#top', label: 'Profile' },
+  { href: '#projects', label: 'Pinned' },
+  { href: '#skills', label: 'Tech stack' },
   { href: '#experience', label: 'Experience' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#contact', label: 'Social' },
 ]
 
 export function Navigation({ menuOpen, setMenuOpen }) {
@@ -15,8 +15,8 @@ export function Navigation({ menuOpen, setMenuOpen }) {
     <>
       <nav className="nav" aria-label="Primary">
         <div className="nav-inner">
-          <a href="#top" className="nav-brand" onClick={close}>
-            NC
+          <a href="#top" className="nav-brand nav-brand--mono" onClick={close}>
+            @nil68657
           </a>
           <ul className="nav-links">
             {LINKS.map(({ href, label }) => (

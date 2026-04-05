@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Navigation } from './components/Navigation'
 import { ProjectsSection } from './components/ProjectsSection'
+import { TechStackSection } from './components/TechStackSection'
+
+const SITE_URL = 'https://nil68657.github.io/nilanjan.github.io/'
 
 function useReveal() {
   const ref = useRef(null)
@@ -38,183 +41,166 @@ export default function App() {
 
   return (
     <>
-      <div className="bg-mesh" aria-hidden>
+      <div className="bg-mesh bg-mesh--subtle" aria-hidden>
         <div className="bg-orb" />
       </div>
       <Navigation menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
       <div className="page" ref={pageRef}>
-        <header id="top" className="hero">
-          <div className="hero-inner fade-up">
-            <div className="hero-badge">
-              <span className="dot" aria-hidden />
-              Open to leadership roles
-            </div>
-            <h1>
-              Nilanjan Chatterjee
-              <br />
-              <span className="gradient-text">Senior Engineering Manager</span>
-            </h1>
-            <h2>
-              AWS &amp; GCP certified. 12+ years building data platforms, MLOps, and GenAI systems with
-              high-performing teams.
-            </h2>
-            <div className="hero-btns">
-              <a className="btn btn-primary" href="#contact">
-                Get in touch
-              </a>
-              <a className="btn btn-ghost" href="#experience">
-                View experience
-              </a>
+        <header id="top" className="profile-page">
+          <div className="section-inner readme-inner">
+            <div className="github-readme-card fade-up">
+              <div className="profile-header">
+                <div className="profile-avatar" aria-hidden>
+                  <span>NC</span>
+                </div>
+                <div className="profile-header__text">
+                  <h1 className="profile-name">Nilanjan Chatterjee</h1>
+                  <p className="profile-handle">
+                    <a
+                      href="https://github.com/nil68657"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="readme-link"
+                    >
+                      nil68657
+                    </a>
+                  </p>
+                  <p className="profile-tagline">
+                    Senior Engineering Manager @ AMD · Data &amp; ML platforms · AWS &amp; GCP certified
+                  </p>
+                  <ul className="profile-meta" aria-label="Profile details">
+                    <li>United States</li>
+                    <li>
+                      <a
+                        href="https://www.linkedin.com/in/nil68657/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="readme-link"
+                      >
+                        in/nil68657
+                      </a>
+                    </li>
+                    <li>12+ years · leadership + hands-on architecture</li>
+                  </ul>
+                </div>
+              </div>
+
+              <h2 className="readme-h2 readme-h2--first">Hi there</h2>
+              <p className="readme-intro">
+                I build and lead teams around <strong>data platforms</strong>, <strong>MLOps</strong>, and{' '}
+                <strong>GenAI</strong> systems — shipping reliable pipelines, inference stacks, and the
+                culture that keeps them healthy.
+              </p>
+              <div className="profile-actions">
+                <a className="btn-github btn-github--primary" href="#contact">
+                  Social links
+                </a>
+                <a className="btn-github" href="#projects">
+                  Pinned work
+                </a>
+                <a className="btn-github" href={SITE_URL}>
+                  This site URL
+                </a>
+              </div>
             </div>
           </div>
         </header>
 
         <section id="experience" aria-labelledby="exp-heading">
-          <div className="section-inner">
-            <p className="section-label">Career</p>
-            <h2 id="exp-heading" className="section-title">
+          <div className="section-inner readme-inner">
+            <h2 id="exp-heading" className="readme-h2 fade-up">
               Experience
             </h2>
-            <p className="section-subtitle">
-              Hands-on technical leadership across data engineering, ML platforms, and org design.
+            <p className="readme-lead fade-up">
+              Condensed highlights — same spirit as a README &ldquo;about me&rdquo; section.
             </p>
 
             <div className="exp-timeline">
-              <article className="card exp-card fade-up">
+              <article className="github-readme-card exp-card fade-up">
                 <div className="exp-header">
                   <span className="exp-company">AMD</span>
                   <span className="exp-role">Senior Engineering Manager — Data &amp; ML</span>
                   <div className="exp-meta">
-                    <span className="exp-period cyan">Present era</span>
+                    <span className="exp-period cyan">Current</span>
                     <span className="exp-location">United States</span>
                   </div>
                 </div>
                 <ul className="exp-achievements cyan">
                   <li>
-                    Led roadmaps for data and ML platforms serving analytics, experimentation, and model
-                    lifecycle needs at scale.
+                    Roadmaps for analytics, experimentation, and model lifecycle platforms at scale.
                   </li>
-                  <li>
-                    Partnered with product and infrastructure to improve reliability, cost, and time-to-ship
-                    for critical pipelines.
-                  </li>
-                  <li>
-                    Grew engineers through clear charters, technical standards, and balanced delivery
-                    against research bets.
-                  </li>
+                  <li>Partnered on reliability, cost, and velocity for critical data/ML paths.</li>
+                  <li>Built engineering culture through charters, standards, and balanced delivery.</li>
                 </ul>
               </article>
 
-              <article className="card exp-card fade-up">
+              <article className="github-readme-card exp-card fade-up">
                 <div className="exp-header">
-                  <span className="exp-company">Prior leadership &amp; IC roles</span>
-                  <span className="exp-role">Data platforms, cloud architecture, ML engineering</span>
+                  <span className="exp-company">Earlier roles</span>
+                  <span className="exp-role">Data platforms · cloud architecture · ML engineering</span>
                   <div className="exp-meta">
-                    <span className="exp-period violet">Earlier</span>
+                    <span className="exp-period violet">Prior</span>
                   </div>
                 </div>
                 <ul className="exp-achievements violet">
-                  <li>Designed lakehouse-style storage, ingestion, and governance patterns on major clouds.</li>
-                  <li>Shipped batch and streaming pipelines with strong testing, monitoring, and SLOs.</li>
-                  <li>
-                    Mentored teams on polyglot stacks (Python, JVM, SQL) and pragmatic platform abstractions.
-                  </li>
+                  <li>Lakehouse-style storage, ingestion, and governance on major clouds.</li>
+                  <li>Batch and streaming pipelines with testing, monitoring, and SLOs.</li>
+                  <li>Mentored polyglot teams (Python, JVM, SQL) on pragmatic abstractions.</li>
                 </ul>
               </article>
-            </div>
-
-            <p className="section-label" style={{ marginTop: '2.5rem' }}>
-              Earlier stops
-            </p>
-            <div className="earlier-grid fade-up">
-              <div className="card earlier-item">
-                <div className="earlier-company">Enterprise &amp; product engineering</div>
-                <div className="earlier-detail">Delivery, architecture reviews, cross-team programs</div>
-              </div>
-              <div className="card earlier-item">
-                <div className="earlier-company">Analytics &amp; research</div>
-                <div className="earlier-detail">Modeling, experimentation, stakeholder storytelling</div>
-              </div>
             </div>
           </div>
         </section>
 
         <ProjectsSection />
-
-        <section id="skills" aria-labelledby="skills-heading">
-          <div className="section-inner section-header-center">
-            <p className="section-label">Stack</p>
-            <h2 id="skills-heading" className="section-title">
-              Skills
-            </h2>
-            <p className="section-subtitle">
-              Depth in data/ML with breadth across cloud, reliability, and people leadership.
-            </p>
-            <div className="skills-grid">
-              {[
-                { icon: '☁️', title: 'Cloud & infra', items: ['AWS', 'GCP', 'Kubernetes', 'Terraform', 'CI/CD'] },
-                { icon: '📊', title: 'Data platforms', items: ['Spark', 'Kafka', 'Airflow', 'dbt', 'Iceberg/Delta'] },
-                { icon: '🤖', title: 'ML & GenAI', items: ['PyTorch', 'Triton', 'RAG', 'Vector DBs', 'Evals'] },
-                { icon: '🧭', title: 'Leadership', items: ['Roadmaps', 'Hiring', 'Coaching', 'Stakeholder mgmt'] },
-                { icon: '🔐', title: 'Quality', items: ['SLOs', 'Observability', 'Security reviews', 'Cost'] },
-                { icon: '⚡', title: 'Languages', items: ['Python', 'SQL', 'Scala', 'Java', 'TypeScript'] },
-              ].map((s) => (
-                <div key={s.title} className="card skill-card fade-up">
-                  <div className="skill-icon" aria-hidden>
-                    {s.icon}
-                  </div>
-                  <h3 className="skill-title">{s.title}</h3>
-                  <div className="tags">
-                    {s.items.map((t) => (
-                      <span key={t} className="tag">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <TechStackSection />
 
         <section id="contact" aria-labelledby="contact-heading">
-          <div className="section-inner section-header-center">
-            <p className="section-label">Contact</p>
-            <h2 id="contact-heading" className="section-title">
-              Let&apos;s connect
+          <div className="section-inner readme-inner">
+            <h2 id="contact-heading" className="readme-h2 fade-up">
+              Social
             </h2>
-            <p className="section-subtitle">
-              Best for strategic roles in data, ML platform, or applied AI leadership.
+            <p className="readme-lead fade-up">
+              Where to find me online (mirrors the link blocks many developers put in a profile README).
             </p>
-            <div className="card contact-card fade-up">
-              <div className="contact-grid contact-grid--two">
+            <div className="github-readme-card contact-readme fade-up">
+              <div className="social-row">
                 <a
-                  className="contact-item"
+                  className="social-chip"
                   href="https://www.linkedin.com/in/nil68657/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div className="contact-icon" aria-hidden>
+                  <span className="social-chip__icon" aria-hidden>
                     in
-                  </div>
-                  <div className="contact-label">LinkedIn</div>
-                  <div className="contact-value">/in/nil68657</div>
+                  </span>
+                  LinkedIn
                 </a>
                 <a
-                  className="contact-item"
+                  className="social-chip"
                   href="https://github.com/nil68657"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div className="contact-icon" aria-hidden>
-                    &lt;/&gt;
-                  </div>
-                  <div className="contact-label">GitHub</div>
-                  <div className="contact-value">@nil68657</div>
+                  <span className="social-chip__icon" aria-hidden>
+                    ⎇
+                  </span>
+                  GitHub
+                </a>
+                <a className="social-chip social-chip--muted" href={SITE_URL}>
+                  <span className="social-chip__icon" aria-hidden>
+                    ↗
+                  </span>
+                  This portfolio
                 </a>
               </div>
-              <p className="contact-extra">Add your email or resume link in the source when ready.</p>
+              <p className="site-url-hint">
+                <strong>Public URL for visitors:</strong>{' '}
+                <a href={SITE_URL} className="readme-link">
+                  {SITE_URL}
+                </a>
+              </p>
             </div>
           </div>
         </section>
@@ -247,7 +233,12 @@ export default function App() {
                 GitHub
               </a>
             </div>
-            <p className="footer-copy">© {new Date().getFullYear()} Nilanjan Chatterjee. All rights reserved.</p>
+            <p className="footer-copy">
+              © {new Date().getFullYear()} Nilanjan Chatterjee · Hosted on GitHub Pages ·{' '}
+              <a href={SITE_URL} className="readme-link readme-link--on-dark">
+                {SITE_URL}
+              </a>
+            </p>
           </div>
         </footer>
       </div>
