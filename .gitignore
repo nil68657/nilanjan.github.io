@@ -1,6 +1,10 @@
 node_modules/
 dist/
 
+# Accidental Windows path copies / local assets
+C/
+attached_assets/
+
 .architect
 bootstrap.css
 bootstrap.js

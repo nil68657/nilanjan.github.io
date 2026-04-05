@@ -7,6 +7,7 @@ const LINKS = [
   { href: '#experience', label: 'Experience' },
   { href: '#skills', label: 'Stack' },
   { href: '#contact', label: 'Social' },
+  { href: '#leetcode', label: 'LeetCode' },
   { href: '#projects', label: 'Pinned' },
 ]
 
