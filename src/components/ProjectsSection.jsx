@@ -16,19 +16,12 @@ const PINNED = [
     visibility: 'Public',
   },
   {
-    name: 'codecrafters-sqlite-python',
-    description: 'SQLite from scratch (learning exercise).',
+    name: 'Quora-Duplicate-Question-Pairs-ML',
+    description:
+      'Detect redundant question pairs for Q&A forums: Word2Vec / phrase similarity, MLP, SVM, and related approaches on Quora-style data.',
     language: 'Python',
     langColor: '#3572A5',
-    href: 'https://github.com/nil68657/codecrafters-sqlite-python',
-    visibility: 'Public',
-  },
-  {
-    name: 'Analytics_Vidhya',
-    description: 'Competition / practice notebooks.',
-    language: 'Jupyter Notebook',
-    langColor: '#DA5B0B',
-    href: 'https://github.com/nil68657/Analytics_Vidhya',
+    href: 'https://github.com/nil68657/Quora-Duplicate-Question-Pairs-ML',
     visibility: 'Public',
   },
   {
@@ -62,7 +55,7 @@ export function ProjectsSection() {
     <section id="projects" className="section-projects" aria-labelledby="projects-heading">
       <div className="section-inner readme-inner">
         <h2 id="projects-heading" className="readme-h2 fade-up">
-          Pinned
+          Rollouts
         </h2>
         <div className="pins-grid">
           {PINNED.map((p) => (
