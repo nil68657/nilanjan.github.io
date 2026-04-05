@@ -1,23 +1,33 @@
 const BLOCKS = [
   {
+    title: 'Analytics',
+    emoji: '⚙️',
+    items: ['Metrics', 'Experimentation', 'Model lifecycle', 'Cost', 'Reliability'],
+  },
+  {
     title: 'Languages',
     emoji: '👩‍💻',
     items: ['Python', 'SQL', 'Scala', 'Java', 'TypeScript', 'Bash'],
   },
   {
-    title: 'Data & ML',
-    emoji: '📊',
-    items: ['Spark', 'Kafka', 'Airflow', 'PyTorch', 'Triton', 'RAG', 'Vector DBs'],
+    title: 'Database',
+    emoji: '⚡',
+    items: ['Postgres', 'MySQL', 'Iceberg', 'Delta', 'Warehouse SQL'],
   },
   {
-    title: 'Cloud & platform',
+    title: 'Frameworks & libraries',
+    emoji: '🚀',
+    items: ['Spark', 'Kafka', 'Airflow', 'dbt', 'PyTorch', 'Kubernetes', 'REST', 'gRPC'],
+  },
+  {
+    title: 'IDE & tools',
+    emoji: '🧰',
+    items: ['VS Code', 'IntelliJ', 'Git', 'Jira', 'Terraform', 'CI'],
+  },
+  {
+    title: 'Cloud',
     emoji: '☁️',
-    items: ['AWS', 'GCP', 'Kubernetes', 'Terraform', 'CI/CD', 'Observability'],
-  },
-  {
-    title: 'Leadership',
-    emoji: '🧭',
-    items: ['Roadmaps', 'Hiring', 'Coaching', 'Stakeholders', 'SLOs', 'Cost'],
+    items: ['AWS', 'GCP', 'Kubernetes', 'Logging / metrics'],
   },
 ]
 
@@ -26,15 +36,12 @@ export function TechStackSection() {
     <section id="skills" aria-labelledby="skills-heading">
       <div className="section-inner readme-inner">
         <h2 id="skills-heading" className="readme-h2 fade-up">
-          Tech stack
+          Languages &amp; tools
         </h2>
-        <p className="readme-lead fade-up">
-          Grouped like a profile README &mdash; tools I use for data platforms, ML, and org execution.
-        </p>
         <div className="tech-blocks">
           {BLOCKS.map((b) => (
             <div key={b.title} className="tech-block fade-up">
-              <h3 className="tech-block__title">
+              <h3 className="readme-h3">
                 <span aria-hidden>{b.emoji}</span> {b.title}
               </h3>
               <div className="tech-block__tags">
