@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
 
 const LINKS = [
-  { href: '#top', label: 'Top' },
   { href: '#intro', label: 'Intro' },
   { href: '#about', label: 'About' },
   { href: '#experience', label: 'Experience' },
@@ -14,13 +13,18 @@ const LINKS = [
 export function Navigation({ menuOpen, setMenuOpen }) {
   const close = useCallback(() => setMenuOpen(false), [setMenuOpen])
 
+  const scrollTop = useCallback(() => {
+    close()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [close])
+
   return (
     <>
       <nav className="nav" aria-label="Primary">
         <div className="nav-inner">
-          <a href="#top" className="nav-brand nav-brand--mono" onClick={close}>
-            @nil68657
-          </a>
+          <button type="button" className="nav-brand" onClick={scrollTop}>
+            Nilanjan Chatterjee
+          </button>
           <ul className="nav-links">
             {LINKS.map(({ href, label }) => (
               <li key={href}>
