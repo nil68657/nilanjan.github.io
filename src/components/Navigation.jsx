@@ -7,7 +7,7 @@ const LINKS = [
   { href: '#skills', label: 'Stack' },
   { href: '#contact', label: 'Social' },
   { href: '#leetcode', label: 'LeetCode' },
-  { href: '#projects', label: 'Pinned' },
+  { href: '#projects', label: 'Rollouts' },
 ]
 
 export function Navigation({ menuOpen, setMenuOpen }) {

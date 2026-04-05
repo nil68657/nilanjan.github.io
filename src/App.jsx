@@ -111,7 +111,7 @@ export default function App() {
                   Social
                 </a>
                 <a className="btn-github" href="#projects">
-                  Pinned
+                  Rollouts
                 </a>
               </div>
             </div>
