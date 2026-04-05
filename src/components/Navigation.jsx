@@ -1,11 +1,13 @@
 import { useCallback } from 'react'
 
 const LINKS = [
-  { href: '#top', label: 'Profile' },
-  { href: '#projects', label: 'Pinned' },
-  { href: '#skills', label: 'Tech stack' },
+  { href: '#top', label: 'Top' },
+  { href: '#intro', label: 'Intro' },
+  { href: '#about', label: 'About' },
   { href: '#experience', label: 'Experience' },
+  { href: '#skills', label: 'Stack' },
   { href: '#contact', label: 'Social' },
+  { href: '#projects', label: 'Pinned' },
 ]
 
 export function Navigation({ menuOpen, setMenuOpen }) {

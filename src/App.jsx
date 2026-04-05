@@ -67,7 +67,7 @@ export default function App() {
                     </a>
                   </p>
                   <p className="profile-tagline">
-                    Senior Engineering Manager @ AMD · Data &amp; ML platforms · AWS &amp; GCP certified
+                    Sr. Engineering Manager @ AMD · Data &amp; ML · AWS &amp; GCP certified
                   </p>
                   <ul className="profile-meta" aria-label="Profile details">
                     <li>United States</li>
@@ -78,29 +78,43 @@ export default function App() {
                         rel="noopener noreferrer"
                         className="readme-link"
                       >
-                        in/nil68657
+                        LinkedIn in/nil68657
                       </a>
                     </li>
-                    <li>12+ years · leadership + hands-on architecture</li>
+                    <li>12+ years</li>
                   </ul>
                 </div>
               </div>
 
-              <h2 className="readme-h2 readme-h2--first">Hi there</h2>
-              <p className="readme-intro">
-                I build and lead teams around <strong>data platforms</strong>, <strong>MLOps</strong>, and{' '}
-                <strong>GenAI</strong> systems — shipping reliable pipelines, inference stacks, and the
-                culture that keeps them healthy.
+              <h2 className="readme-h2 readme-h2--first">Hi there!</h2>
+
+              <h3 id="intro" className="readme-h3 readme-h3--tight">
+                Intro
+              </h3>
+              <p className="readme-body fade-up">
+                I run engineering for data and ML platforms at AMD—roadmaps, people, and enough time in the
+                code and design docs to keep things honest.
               </p>
+
+              <h3 id="about" className="readme-h3">
+                About me
+              </h3>
+              <p className="readme-body fade-up">
+                Most of my work is cloud data systems: ingestion, batch and streaming jobs, warehouses, and
+                the glue around training and serving models. I care about operational detail—monitoring,
+                cost, and clear handoffs—not slide decks. AWS and GCP certified; I still write SQL and Python
+                when it helps the team move.
+              </p>
+
               <div className="profile-actions">
                 <a className="btn-github btn-github--primary" href="#contact">
-                  Social links
+                  Social
                 </a>
                 <a className="btn-github" href="#projects">
-                  Pinned work
+                  Pinned
                 </a>
                 <a className="btn-github" href={SITE_URL}>
-                  This site URL
+                  Site
                 </a>
               </div>
             </div>
@@ -112,9 +126,6 @@ export default function App() {
             <h2 id="exp-heading" className="readme-h2 fade-up">
               Experience
             </h2>
-            <p className="readme-lead fade-up">
-              Condensed highlights — same spirit as a README &ldquo;about me&rdquo; section.
-            </p>
 
             <div className="exp-timeline">
               <article className="github-readme-card exp-card fade-up">
@@ -127,33 +138,30 @@ export default function App() {
                   </div>
                 </div>
                 <ul className="exp-achievements cyan">
-                  <li>
-                    Roadmaps for analytics, experimentation, and model lifecycle platforms at scale.
-                  </li>
-                  <li>Partnered on reliability, cost, and velocity for critical data/ML paths.</li>
-                  <li>Built engineering culture through charters, standards, and balanced delivery.</li>
+                  <li>Own planning and delivery for analytics, experimentation, and ML platform work.</li>
+                  <li>Work with infra and product on reliability, cost, and release cadence.</li>
+                  <li>Hire and grow engineers; keep standards practical.</li>
                 </ul>
               </article>
 
               <article className="github-readme-card exp-card fade-up">
                 <div className="exp-header">
-                  <span className="exp-company">Earlier roles</span>
-                  <span className="exp-role">Data platforms · cloud architecture · ML engineering</span>
+                  <span className="exp-company">Earlier</span>
+                  <span className="exp-role">Data platforms, cloud architecture, ML engineering</span>
                   <div className="exp-meta">
-                    <span className="exp-period violet">Prior</span>
+                    <span className="exp-period violet">Prior roles</span>
                   </div>
                 </div>
                 <ul className="exp-achievements violet">
-                  <li>Lakehouse-style storage, ingestion, and governance on major clouds.</li>
-                  <li>Batch and streaming pipelines with testing, monitoring, and SLOs.</li>
-                  <li>Mentored polyglot teams (Python, JVM, SQL) on pragmatic abstractions.</li>
+                  <li>Built lakehouse-style storage and pipelines on AWS and GCP.</li>
+                  <li>Shipped batch and streaming systems with tests, alerts, and SLOs.</li>
+                  <li>Led teams using Python, JVM languages, and SQL.</li>
                 </ul>
               </article>
             </div>
           </div>
         </section>
 
-        <ProjectsSection />
         <TechStackSection />
 
         <section id="contact" aria-labelledby="contact-heading">
@@ -161,10 +169,8 @@ export default function App() {
             <h2 id="contact-heading" className="readme-h2 fade-up">
               Social
             </h2>
-            <p className="readme-lead fade-up">
-              Where to find me online (mirrors the link blocks many developers put in a profile README).
-            </p>
             <div className="github-readme-card contact-readme fade-up">
+              <h3 className="readme-h3 readme-h3--in-card">👨👩 Social</h3>
               <div className="social-row">
                 <a
                   className="social-chip"
@@ -172,9 +178,6 @@ export default function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="social-chip__icon" aria-hidden>
-                    in
-                  </span>
                   LinkedIn
                 </a>
                 <a
@@ -183,20 +186,13 @@ export default function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="social-chip__icon" aria-hidden>
-                    ⎇
-                  </span>
                   GitHub
                 </a>
                 <a className="social-chip social-chip--muted" href={SITE_URL}>
-                  <span className="social-chip__icon" aria-hidden>
-                    ↗
-                  </span>
-                  This portfolio
+                  This site
                 </a>
               </div>
               <p className="site-url-hint">
-                <strong>Public URL for visitors:</strong>{' '}
                 <a href={SITE_URL} className="readme-link">
                   {SITE_URL}
                 </a>
@@ -204,6 +200,8 @@ export default function App() {
             </div>
           </div>
         </section>
+
+        <ProjectsSection />
 
         <footer className="footer">
           <div className="footer-inner">
@@ -234,7 +232,7 @@ export default function App() {
               </a>
             </div>
             <p className="footer-copy">
-              © {new Date().getFullYear()} Nilanjan Chatterjee · Hosted on GitHub Pages ·{' '}
+              © {new Date().getFullYear()} Nilanjan Chatterjee ·{' '}
               <a href={SITE_URL} className="readme-link readme-link--on-dark">
                 {SITE_URL}
               </a>

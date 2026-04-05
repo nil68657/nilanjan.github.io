@@ -1,7 +1,7 @@
 const PINNED = [
   {
     name: 'Advanced_NLP_Spacy',
-    description: 'POS tagging, intent extraction, and NER with spaCy.',
+    description: 'spaCy: POS, intent, NER.',
     language: 'Python',
     langColor: '#3572A5',
     href: 'https://github.com/nil68657/Advanced_NLP_Spacy',
@@ -9,7 +9,7 @@ const PINNED = [
   },
   {
     name: 'char-rnn',
-    description: 'Character-level RNN experiments for text generation.',
+    description: 'Small RNN for text generation.',
     language: 'Python',
     langColor: '#3572A5',
     href: 'https://github.com/nil68657/char-rnn',
@@ -17,7 +17,7 @@ const PINNED = [
   },
   {
     name: 'codecrafters-sqlite-python',
-    description: 'Build-your-own SQLite — hands-on systems learning.',
+    description: 'SQLite from scratch (learning exercise).',
     language: 'Python',
     langColor: '#3572A5',
     href: 'https://github.com/nil68657/codecrafters-sqlite-python',
@@ -25,7 +25,7 @@ const PINNED = [
   },
   {
     name: 'Analytics_Vidhya',
-    description: 'Notebooks and experiments from analytics challenges.',
+    description: 'Competition / practice notebooks.',
     language: 'Jupyter Notebook',
     langColor: '#DA5B0B',
     href: 'https://github.com/nil68657/Analytics_Vidhya',
@@ -33,7 +33,7 @@ const PINNED = [
   },
   {
     name: 'ml-serving-platform',
-    description: 'MLOps inference, autoscaling, and observability at scale. (Work — not public)',
+    description: 'Inference, scaling, and monitoring. Not public.',
     language: 'Internal',
     langColor: '#8b949e',
     href: null,
@@ -41,7 +41,7 @@ const PINNED = [
   },
   {
     name: 'hpc-training-pipelines',
-    description: 'Distributed jobs on shared clusters — Slurm, data locality, GPU pools.',
+    description: 'Cluster jobs, Slurm, GPUs. Not public.',
     language: 'Internal',
     langColor: '#8b949e',
     href: null,
@@ -64,18 +64,6 @@ export function ProjectsSection() {
         <h2 id="projects-heading" className="readme-h2 fade-up">
           Pinned
         </h2>
-        <p className="readme-lead fade-up">
-          Highlighted repositories and representative work — same idea as{' '}
-          <a
-            href="https://github.com/SnehanjanChatterjee"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="readme-link"
-          >
-            pinned repos on a GitHub profile
-          </a>
-          .
-        </p>
         <div className="pins-grid">
           {PINNED.map((p) => (
             <article key={p.name} className="github-pin fade-up">

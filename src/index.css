@@ -681,7 +681,6 @@ section {
 
 /* ============================================================
    GITHUB PROFILE README–STYLE LAYOUT
-   (visual inspiration: github.com profile README pages)
    ============================================================ */
 .readme-inner {
   max-width: 1012px;
@@ -781,6 +780,32 @@ section {
 
 .readme-h2--first {
   margin-top: 0.5rem;
+}
+
+.readme-h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1.35rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.readme-h3--tight {
+  margin-top: 0.75rem;
+}
+
+.readme-h3--in-card {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.readme-body {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.65;
+  margin-bottom: 0.25rem;
+  max-width: 52rem;
 }
 
 .readme-intro {
@@ -961,16 +986,8 @@ section {
 .tech-blocks {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-}
-
-.tech-block__title {
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin-bottom: 0.65rem;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
+  gap: 1.35rem;
+  margin-top: 0.35rem;
 }
 
 .tech-block__tags {
