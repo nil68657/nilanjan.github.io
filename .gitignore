@@ -1,3 +1,6 @@
+node_modules/
+dist/
+
 .architect
 bootstrap.css
 bootstrap.js
