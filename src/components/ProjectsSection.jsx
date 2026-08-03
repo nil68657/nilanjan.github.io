@@ -1,85 +1,56 @@
-const PINNED = [
-  {
-    name: 'Advanced_NLP_Spacy',
-    description: 'spaCy: POS, intent, NER.',
-    language: 'Python',
-    langColor: '#3572A5',
-    href: 'https://github.com/nil68657/Advanced_NLP_Spacy',
-    visibility: 'Public',
-  },
-  {
-    name: 'char-rnn',
-    description: 'Small RNN for text generation.',
-    language: 'Python',
-    langColor: '#3572A5',
-    href: 'https://github.com/nil68657/char-rnn',
-    visibility: 'Public',
-  },
-  {
-    name: 'Quora-Duplicate-Question-Pairs-ML',
-    description:
-      'Detect redundant question pairs for Q&A forums: Word2Vec / phrase similarity, MLP, SVM, and related approaches on Quora-style data.',
-    language: 'Python',
-    langColor: '#3572A5',
-    href: 'https://github.com/nil68657/Quora-Duplicate-Question-Pairs-ML',
-    visibility: 'Public',
-  },
-  {
-    name: 'ml-serving-platform',
-    description: 'Inference, scaling, and monitoring. Not public.',
-    language: 'Internal',
-    langColor: '#8b949e',
-    href: null,
-    visibility: 'Private',
-  },
-  {
-    name: 'hpc-training-pipelines',
-    description: 'Cluster jobs, Slurm, GPUs. Not public.',
-    language: 'Internal',
-    langColor: '#8b949e',
-    href: null,
-    visibility: 'Private',
-  },
-]
+import { PROFILE, PROJECTS } from '../data/portfolio'
 
-function RepoIcon() {
+function ArrowUpRight() {
   return (
-    <svg className="pin-repo-icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
-      <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z" />
+    <svg viewBox="0 0 16 16" aria-hidden>
+      <path d="M4 12 12 4M5 4h7v7" />
     </svg>
   )
 }
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="section-projects" aria-labelledby="projects-heading">
-      <div className="section-inner readme-inner">
-        <h2 id="projects-heading" className="readme-h2 fade-up">
-          Rollouts
-        </h2>
-        <div className="pins-grid">
-          {PINNED.map((p) => (
-            <article key={p.name} className="github-pin fade-up">
-              <div className="github-pin__head">
-                <RepoIcon />
-                {p.href ? (
-                  <a className="github-pin__title" href={p.href} target="_blank" rel="noopener noreferrer">
-                    {p.name}
-                  </a>
-                ) : (
-                  <span className="github-pin__title github-pin__title--static">{p.name}</span>
-                )}
-                <span className={`github-pin__badge github-pin__badge--${p.visibility.toLowerCase()}`}>
-                  {p.visibility}
-                </span>
+    <section id="projects" className="section projects-section" aria-labelledby="projects-heading">
+      <div className="section-shell">
+        <div className="section-heading section-heading-split fade-up">
+          <div>
+            <p className="section-kicker">Selected builds / Applied research</p>
+            <h2 id="projects-heading">Ideas made executable.</h2>
+          </div>
+          <a className="text-link" href={PROFILE.github} target="_blank" rel="noopener noreferrer">
+            Explore GitHub
+            <ArrowUpRight />
+          </a>
+        </div>
+
+        <div className="project-list">
+          {PROJECTS.map((project) => (
+            <article className="project-row fade-up" key={project.title}>
+              <span className="project-index">{project.index}</span>
+              <div className="project-copy">
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <ul aria-label={`${project.title} technologies`}>
+                  {project.tags.map((tag) => (
+                    <li key={tag}>{tag}</li>
+                  ))}
+                </ul>
               </div>
-              <p className="github-pin__desc">{p.description}</p>
-              <div className="github-pin__foot">
-                <span className="github-pin__lang">
-                  <span className="github-pin__dot" style={{ background: p.langColor }} aria-hidden />
-                  {p.language}
+              {project.href ? (
+                <a
+                  className="project-action"
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${project.title} on GitHub`}
+                >
+                  <ArrowUpRight />
+                </a>
+              ) : (
+                <span className="project-action project-action-muted" aria-hidden>
+                  —
                 </span>
-              </div>
+              )}
             </article>
           ))}
         </div>

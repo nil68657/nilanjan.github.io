@@ -1,39 +1,139 @@
 import { useEffect, useRef, useState } from 'react'
+import resumeUrl from '../Nilanjan_Principal_Data_Architect_Resume_v0.pdf?url'
 import { ExperienceTimeline } from './components/ExperienceTimeline'
 import { Navigation } from './components/Navigation'
-import { LeetCodeStats, LEETCODE_PROFILE_URL } from './components/LeetCodeStats'
 import { ProjectsSection } from './components/ProjectsSection'
 import { TechStackSection } from './components/TechStackSection'
+import { IMPACT_STORIES, METRICS, PROFILE } from './data/portfolio'
 
-const EMAIL = 'nilanjan.9325@gmail.com'
-const MAILTO = `mailto:${EMAIL}`
+function ArrowUpRight() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden>
+      <path d="M4 12 12 4M5 4h7v7" />
+    </svg>
+  )
+}
+
+function ArrowDown() {
+  return (
+    <svg viewBox="0 0 18 18" aria-hidden>
+      <path d="M9 3v12m0 0 5-5m-5 5-5-5" />
+    </svg>
+  )
+}
+
+function ArchitectureMap() {
+  return (
+    <figure className="architecture-card fade-up">
+      <div className="architecture-card-head">
+        <div>
+          <span className="window-dot window-dot-red" />
+          <span className="window-dot window-dot-amber" />
+          <span className="window-dot window-dot-green" />
+        </div>
+        <span>enterprise_data_system</span>
+        <span className="system-status">
+          <i />
+          online
+        </span>
+      </div>
+
+      <div className="architecture-canvas" aria-hidden>
+        <div className="flow-label flow-label-input">SOURCES</div>
+        <div className="flow-source flow-source-one">Silicon</div>
+        <div className="flow-source flow-source-two">Telemetry</div>
+        <div className="flow-source flow-source-three">SaaS</div>
+
+        <div className="flow-connector flow-connector-top" />
+        <div className="flow-stream">
+          <span />
+          Event backbone
+          <small>batch + real-time</small>
+        </div>
+        <div className="flow-connector flow-connector-middle" />
+
+        <div className="flow-core">
+          <div className="flow-core-orbit orbit-one" />
+          <div className="flow-core-orbit orbit-two" />
+          <span>UNIFIED</span>
+          <strong>LAKEHOUSE</strong>
+          <small>governed · observable · resilient</small>
+        </div>
+
+        <div className="flow-connector flow-connector-bottom" />
+        <div className="flow-products">
+          <span>DATA PRODUCTS</span>
+          <span>ML + AI</span>
+          <span>DECISIONS</span>
+        </div>
+      </div>
+
+      <figcaption>
+        <span>Target state</span>
+        From raw signals to trusted decisions.
+      </figcaption>
+    </figure>
+  )
+}
 
 function useReveal() {
-  const ref = useRef(null)
+  const rootRef = useRef(null)
+
   useEffect(() => {
-    const root = ref.current
-    if (!root) return
-    const els = root.querySelectorAll('.fade-up')
-    const io = new IntersectionObserver(
+    const root = rootRef.current
+    if (!root) return undefined
+
+    const elements = root.querySelectorAll('.fade-up')
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach((element) => element.classList.add('is-visible'))
+      return undefined
+    }
+
+    const observer = new IntersectionObserver(
       (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible')
-            io.unobserve(e.target)
-          }
-        }
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        })
       },
-      { rootMargin: '0px 0px -40px 0px', threshold: 0.08 }
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
     )
-    els.forEach((el) => io.observe(el))
-    return () => io.disconnect()
+
+    elements.forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
   }, [])
-  return ref
+
+  return rootRef
+}
+
+function useScrollProgress() {
+  useEffect(() => {
+    let frame = 0
+    const update = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight
+      const progress = scrollable > 0 ? window.scrollY / scrollable : 0
+      document.documentElement.style.setProperty('--scroll-progress', `${progress * 100}%`)
+      frame = 0
+    }
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [])
 }
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const pageRef = useReveal()
+  useScrollProgress()
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
@@ -44,185 +144,188 @@ export default function App() {
 
   return (
     <>
-      <div className="bg-mesh bg-mesh--subtle" aria-hidden>
-        <div className="bg-orb" />
-      </div>
-      <Navigation menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <div className="scroll-progress" aria-hidden />
+      <div className="page-noise" aria-hidden />
+      <Navigation menuOpen={menuOpen} setMenuOpen={setMenuOpen} resumeUrl={resumeUrl} />
 
-      <div className="page" ref={pageRef}>
-        <header className="profile-page">
-          <div className="section-inner readme-inner">
-            <div className="github-readme-card fade-up">
-              <div className="profile-header">
-                <div className="profile-avatar" aria-hidden>
-                  <span>NC</span>
+      <div ref={pageRef}>
+        <main id="main-content">
+          <header id="top" className="hero">
+            <div className="hero-grid" aria-hidden />
+            <div className="hero-orb" aria-hidden />
+            <div className="section-shell hero-layout">
+              <div className="hero-copy">
+                <p className="hero-kicker fade-up">
+                  <span className="availability-dot" />
+                  Principal Data Architect · Austin, TX
+                </p>
+                <h1 className="fade-up">
+                  Data systems
+                  <span>built to compound.</span>
+                </h1>
+                <p className="hero-intro fade-up">
+                  I’m Nilanjan Chatterjee. I architect enterprise Lakehouse, Data Mesh, and AI platforms
+                  that turn complex, high-volume data into trusted products and measurable outcomes.
+                </p>
+                <div className="hero-actions fade-up">
+                  <a className="button button-primary" href="#impact">
+                    Explore my impact
+                    <ArrowDown />
+                  </a>
+                  <a className="button button-secondary" href={resumeUrl} download>
+                    Download résumé
+                    <ArrowUpRight />
+                  </a>
                 </div>
-                <div className="profile-header__text">
-                  <h1 className="profile-name">Nilanjan Chatterjee</h1>
-                  <p className="profile-tagline">
-                    Data engineering leader &amp; architect · Advanced Micro Devices (AMD) · AWS &amp; GCP
-                  </p>
-                  <ul className="profile-meta" aria-label="Profile details">
-                    <li>United States</li>
-                    <li>
-                      <a
-                        href="https://www.linkedin.com/in/nil68657/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="readme-link"
-                      >
-                        LinkedIn
-                      </a>
-                    </li>
-                    <li>12+ years</li>
-                    <li>
-                      <a href={LEETCODE_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="readme-link">
-                        LeetCode
-                      </a>
-                    </li>
+                <div className="hero-trust fade-up">
+                  <span>Architecture leadership across</span>
+                  <ul>
+                    <li>Semiconductor</li>
+                    <li>Financial services</li>
+                    <li>Cloud</li>
+                    <li>Telecom</li>
                   </ul>
                 </div>
               </div>
+              <ArchitectureMap />
+            </div>
 
-              <h2 className="readme-h2 readme-h2--first">Hi there!</h2>
+            <a className="hero-scroll-cue" href="#impact" aria-label="Scroll to selected impact">
+              <span>Scroll to explore</span>
+              <ArrowDown />
+            </a>
+          </header>
 
-              <h3 id="intro" className="readme-h3 readme-h3--tight">
-                Intro
-              </h3>
-              <p className="readme-body fade-up">
-                A seasoned Data Engineering leader and architect working for Advanced Micro Devices (AMD) with
-                12 years of extensive experience in rolling out 0–1 turn-key products and features across
-                Fintech, Semiconductor, and Telecom domains.
-              </p>
+          <section className="metrics-band" aria-label="Career highlights">
+            <div className="section-shell metrics-grid">
+              {METRICS.map((metric) => (
+                <div className="metric fade-up" key={metric.label}>
+                  <strong>{metric.value}</strong>
+                  <span>{metric.label}</span>
+                </div>
+              ))}
+            </div>
+          </section>
 
-              <h3 id="about" className="readme-h3">
-                About me
-              </h3>
-              <p className="readme-body fade-up">
-                I am Nilanjan Chatterjee, a seasoned Data Engineering leader and architect working for Advanced
-                Micro Devices (AMD) with 12 years of extensive experience in rolling out 0–1 turn-key
-                products and features across Fintech, Semiconductor, and Telecom domains. With over 12 years
-                of experience across Data Engineering, Data Science, and Gen AI pipeline and MLOps, I assist
-                business operationalise their data and ML strategy and find data driven solutions to problems.
-              </p>
+          <section id="impact" className="section impact-section" aria-labelledby="impact-heading">
+            <div className="section-shell">
+              <div className="section-heading section-heading-split fade-up">
+                <div>
+                  <p className="section-kicker">Selected impact / At enterprise scale</p>
+                  <h2 id="impact-heading">Proof, not promises.</h2>
+                </div>
+                <p>
+                  Platforms are only valuable when they change the numbers. These are a few of the systems
+                  and outcomes I’ve helped create.
+                </p>
+              </div>
 
-              <div className="profile-actions">
-                <a className="btn-github btn-github--primary" href="#contact">
-                  Social
-                </a>
-                <a className="btn-github" href="#projects">
-                  Rollouts
-                </a>
+              <div className="impact-grid">
+                {IMPACT_STORIES.map((story) => (
+                  <article className={`impact-card impact-card-${story.id} fade-up`} key={story.id}>
+                    <div className="impact-card-topline">
+                      <span>{story.index}</span>
+                      <span>{story.company}</span>
+                    </div>
+                    <p className="impact-eyebrow">{story.eyebrow}</p>
+                    <h3>{story.title}</h3>
+                    <p className="impact-description">{story.description}</p>
+                    <dl className="impact-outcomes">
+                      {story.outcomes.map((outcome) => (
+                        <div key={outcome.label}>
+                          <dt>{outcome.value}</dt>
+                          <dd>{outcome.label}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <ul className="impact-stack" aria-label={`${story.company} technologies`}>
+                      {story.stack.map((technology) => (
+                        <li key={technology}>{technology}</li>
+                      ))}
+                    </ul>
+                  </article>
+                ))}
               </div>
             </div>
-          </div>
-        </header>
+          </section>
 
-        <section id="experience" aria-labelledby="exp-heading">
-          <div className="section-inner readme-inner">
-            <h2 id="exp-heading" className="readme-h2 fade-up">
-              Experience
-            </h2>
-
-            <ExperienceTimeline />
-          </div>
-        </section>
-
-        <TechStackSection />
-
-        <section id="contact" aria-labelledby="contact-heading">
-          <div className="section-inner readme-inner">
-            <h2 id="contact-heading" className="readme-h2 fade-up">
-              Social
-            </h2>
-            <div className="github-readme-card contact-readme fade-up">
-              <h3 className="readme-h3 readme-h3--in-card">👨👩 Social</h3>
-              <div className="social-row">
-                <a
-                  className="social-chip"
-                  href="https://www.linkedin.com/in/nil68657/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-                <a
-                  className="social-chip"
-                  href="https://github.com/nil68657"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub
-                </a>
-                <a
-                  className="social-chip"
-                  href={LEETCODE_PROFILE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LeetCode
-                </a>
+          <section className="manifesto-section" aria-label="Architecture philosophy">
+            <div className="section-shell manifesto-layout">
+              <p className="section-kicker fade-up">My operating principle</p>
+              <blockquote className="fade-up">
+                “The best architecture makes the right path the easy path—
+                <span>for data, for teams, and for the business.”</span>
+              </blockquote>
+              <div className="principle-list fade-up">
+                <span>01 · Align on value</span>
+                <span>02 · Design for change</span>
+                <span>03 · Instrument everything</span>
               </div>
-              <LeetCodeStats />
-              <p className="contact-email-row">
-                <a
-                  href={MAILTO}
-                  className="btn-github btn-github--primary"
-                  title={EMAIL}
-                  aria-label={`Email ${EMAIL}`}
-                >
-                  Email me
+            </div>
+          </section>
+
+          <section id="experience" className="section experience-section" aria-labelledby="experience-heading">
+            <div className="section-shell">
+              <div className="section-heading section-heading-split fade-up">
+                <div>
+                  <p className="section-kicker">Experience / 2013—Now</p>
+                  <h2 id="experience-heading">A career built across the data lifecycle.</h2>
+                </div>
+                <p>
+                  From hands-on distributed engineering to enterprise strategy and architecture leadership.
+                </p>
+              </div>
+              <ExperienceTimeline />
+            </div>
+          </section>
+
+          <TechStackSection />
+          <ProjectsSection />
+
+          <section id="contact" className="contact-section" aria-labelledby="contact-heading">
+            <div className="section-shell contact-shell">
+              <div className="contact-copy fade-up">
+                <p className="section-kicker">Let’s build what’s next</p>
+                <h2 id="contact-heading">
+                  Have a hard data problem?
+                  <span>Let’s make it tractable.</span>
+                </h2>
+              </div>
+              <div className="contact-actions fade-up">
+                <a className="contact-email" href={`mailto:${PROFILE.email}`}>
+                  <span>Email</span>
+                  {PROFILE.email}
+                  <ArrowUpRight />
                 </a>
-              </p>
+                <div className="contact-links">
+                  <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer">
+                    LinkedIn
+                    <ArrowUpRight />
+                  </a>
+                  <a href={PROFILE.github} target="_blank" rel="noopener noreferrer">
+                    GitHub
+                    <ArrowUpRight />
+                  </a>
+                  <a href={resumeUrl} download>
+                    Résumé
+                    <ArrowUpRight />
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </main>
 
-        <ProjectsSection />
-
-        <footer className="footer">
-          <div className="footer-inner">
-            <div className="footer-links">
-              <a
-                className="footer-link"
-                href="https://www.linkedin.com/in/nil68657/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn (opens in new tab)"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden>
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-                LinkedIn
-              </a>
-              <a
-                className="footer-link"
-                href="https://github.com/nil68657"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub (opens in new tab)"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden>
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
-                GitHub
-              </a>
-              <a
-                className="footer-link"
-                href={LEETCODE_PROFILE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LeetCode (opens in new tab)"
-              >
-                LeetCode
-              </a>
-            </div>
-            <p className="footer-email">
-              <a href={MAILTO} className="footer-link" title={EMAIL} aria-label={`Email ${EMAIL}`}>
-                Email me
-              </a>
-            </p>
-            <p className="footer-copy">© {new Date().getFullYear()} Nilanjan Chatterjee</p>
+        <footer className="site-footer">
+          <div className="section-shell footer-layout">
+            <a className="footer-brand" href="#top">
+              NC<span>.</span>
+            </a>
+            <p>Principal Data Architect · Austin, Texas</p>
+            <p>© {new Date().getFullYear()} Nilanjan Chatterjee</p>
           </div>
         </footer>
       </div>

@@ -1,14 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// GitHub Pages project site: https://nil68657.github.io/nilanjan.github.io/
-// Local dev uses '/'. For a custom domain at apex, use base: '/' in production too.
-const repo = 'nilanjan.github.io'
-
-export default defineConfig(({ command }) => ({
-  base: command === 'build' ? `/${repo}/` : '/',
+export default defineConfig({
+  // Relative assets work on both the GitHub project URL and a custom domain.
+  base: './',
   plugins: [react()],
   build: {
     outDir: 'dist',
+    target: 'es2022',
+    sourcemap: false,
   },
-}))
+})

@@ -1,84 +1,49 @@
-# Overview
+# Nilanjan Chatterjee — Portfolio
 
-This is a modern full-stack web application that serves as a professional portfolio website for Nilanjan Chatterjee, a Senior Engineering Manager specializing in Data and ML Engineering. The application features an interactive Mandelbrot fractal background renderer and showcases professional experience, skills, and contact information through a sleek, modern interface.
+A lightweight, responsive portfolio for a Principal Data Architect. Content is based on the included résumé and focuses on enterprise-scale data, AI, MLOps, governance, and platform outcomes.
 
-The project is built as a React single-page application with an Express.js backend, utilizing TypeScript throughout for type safety. The frontend features advanced WebGL-based fractal rendering, responsive design with Tailwind CSS, and a comprehensive UI component library using shadcn/ui components built on Radix UI primitives.
+## Stack
 
-# User Preferences
+- React 19
+- Vite 8
+- Plain CSS with no UI or animation runtime
+- GitHub Actions + GitHub Pages
 
-Preferred communication style: Simple, everyday language.
+## Local development
 
-# System Architecture
+```bash
+npm install
+npm run dev
+```
 
-## Frontend Architecture
-The frontend is built using **React 18** with **TypeScript** and follows a component-based architecture. The application uses **Vite** as the build tool and development server, providing fast hot module replacement and optimized production builds.
+Create a production build with:
 
-**Key architectural decisions:**
-- **Component Structure**: Modular component design with separation between page components, UI components, and feature-specific components
-- **Routing**: Uses Wouter for lightweight client-side routing, keeping the bundle size minimal
-- **State Management**: Leverages React Query (@tanstack/react-query) for server state management and caching
-- **Styling**: Tailwind CSS with custom CSS variables for theming, providing a dark-themed design with glass morphism effects
-- **UI Components**: shadcn/ui component library built on Radix UI primitives for accessibility and consistency
+```bash
+npm run build
+npm run preview
+```
 
-**Advanced Features:**
-- **WebGL Mandelbrot Renderer**: Custom WebGL implementation that renders interactive Mandelbrot fractals as a background, responding to scroll progress
-- **Responsive Design**: Mobile-first approach with responsive breakpoints
-- **Performance Optimization**: Custom hooks for scroll tracking and mobile detection
+## GitHub Pages
 
-## Backend Architecture
-The backend uses **Express.js** with TypeScript, implementing a RESTful API pattern. The server is configured for both development and production environments with proper middleware setup.
+`.github/workflows/deploy-pages.yml` builds and deploys the site whenever `main` is updated. In the repository settings, set **Pages → Source** to **GitHub Actions**.
 
-**Key architectural decisions:**
-- **API Structure**: RESTful endpoints prefixed with `/api` for clear separation from static assets
-- **Middleware**: Request logging, JSON parsing, and error handling middleware
-- **Development Setup**: Vite integration for seamless full-stack development experience
-- **Static File Serving**: Efficient serving of built React application in production
+The Vite build uses relative asset paths, so the same artifact works at both:
 
-## Data Storage Solutions
-The application implements a flexible storage abstraction with both in-memory and database options:
+- `https://nil68657.github.io/nilanjan.github.io/`
+- A custom domain
 
-**Storage Interface Design:**
-- **Abstract Storage Interface**: `IStorage` interface defining CRUD operations for scalability
-- **In-Memory Implementation**: `MemStorage` class for development and testing
-- **Database Ready**: Configured for PostgreSQL with Drizzle ORM for production use
-- **Schema Definition**: Shared TypeScript schemas using Drizzle and Zod for validation
+## AWS Route 53 custom domain
 
-**Database Configuration:**
-- **ORM**: Drizzle ORM with PostgreSQL dialect
-- **Migrations**: Drizzle Kit for database schema management
-- **Connection**: Neon Database serverless PostgreSQL support
-- **Type Safety**: Full TypeScript integration with inferred types
+After choosing the exact domain:
 
-## External Dependencies
+1. Add `public/CNAME` containing only the domain, for example `example.com`.
+2. Add the same custom domain under **GitHub repository → Settings → Pages**.
+3. In the Route 53 hosted zone, point the apex domain to GitHub Pages with four `A` records:
+   - `185.199.108.153`
+   - `185.199.109.153`
+   - `185.199.110.153`
+   - `185.199.111.153`
+4. For `www`, add a `CNAME` record pointing to `nil68657.github.io`.
+5. After GitHub verifies DNS, enable **Enforce HTTPS**.
 
-### Database & ORM
-- **@neondatabase/serverless**: Serverless PostgreSQL database connection
-- **drizzle-orm**: Type-safe ORM with excellent TypeScript support
-- **drizzle-zod**: Schema validation integration
-- **connect-pg-simple**: PostgreSQL session store for Express sessions
-
-### Frontend Framework & Libraries
-- **React 18**: Core frontend framework with modern features
-- **@tanstack/react-query**: Server state management and caching
-- **wouter**: Lightweight routing library
-- **date-fns**: Date manipulation and formatting
-
-### UI & Styling
-- **@radix-ui/***: Comprehensive set of accessible UI primitives
-- **tailwindcss**: Utility-first CSS framework
-- **class-variance-authority**: Component variant management
-- **clsx**: Conditional className utility
-- **lucide-react**: Modern icon library
-
-### Development Tools
-- **Vite**: Fast build tool and development server
-- **TypeScript**: Static type checking
-- **@replit/vite-plugin-***: Replit-specific development plugins
-- **tsx**: TypeScript execution for Node.js
-
-### Form & Validation
-- **react-hook-form**: Performant form library
-- **@hookform/resolvers**: Form validation resolvers
-- **zod**: Schema validation library
-
-The architecture emphasizes type safety, performance, and maintainability while providing a solid foundation for both current features and future enhancements.
+DNS changes can take several hours to propagate. Replace `example.com` with the real domain before deploying.

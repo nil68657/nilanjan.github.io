@@ -1,82 +1,115 @@
-import { useMemo, useState } from 'react'
-import { CERTIFICATIONS, EDUCATION, EXPERIENCES } from '../data/experiences'
+import { useRef, useState } from 'react'
+import { CERTIFICATIONS, EDUCATION, EXPERIENCES } from '../data/portfolio'
 
 export function ExperienceTimeline() {
-  const [selectedId, setSelectedId] = useState(EXPERIENCES[0].id)
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const tabRefs = useRef([])
+  const selected = EXPERIENCES[selectedIndex]
 
-  const selected = useMemo(
-    () => EXPERIENCES.find((e) => e.id === selectedId) ?? EXPERIENCES[0],
-    [selectedId]
-  )
+  const selectTab = (index, moveFocus = false) => {
+    const nextIndex = (index + EXPERIENCES.length) % EXPERIENCES.length
+    setSelectedIndex(nextIndex)
+    if (moveFocus) requestAnimationFrame(() => tabRefs.current[nextIndex]?.focus())
+  }
+
+  const handleKeyDown = (event, index) => {
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+      event.preventDefault()
+      selectTab(index + 1, true)
+    }
+    if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+      event.preventDefault()
+      selectTab(index - 1, true)
+    }
+    if (event.key === 'Home') {
+      event.preventDefault()
+      selectTab(0, true)
+    }
+    if (event.key === 'End') {
+      event.preventDefault()
+      selectTab(EXPERIENCES.length - 1, true)
+    }
+  }
 
   return (
-    <div className="experience-timeline-root fade-up">
-      <p className="experience-timeline-hint">
-        Click a role on the timeline to view highlights.
-      </p>
-
-      <div className="experience-chart">
-        <div className="experience-rail" role="tablist" aria-label="Work history">
-          {EXPERIENCES.map((exp) => {
-            const isActive = exp.id === selectedId
+    <>
+      <div className="career-layout fade-up">
+        <div className="career-tabs" role="tablist" aria-label="Professional experience">
+          {EXPERIENCES.map((experience, index) => {
+            const isSelected = index === selectedIndex
             return (
               <button
-                key={exp.id}
+                ref={(node) => {
+                  tabRefs.current[index] = node
+                }}
+                key={experience.id}
+                id={`career-tab-${experience.id}`}
+                className={`career-tab${isSelected ? ' is-active' : ''}`}
                 type="button"
                 role="tab"
-                id={`exp-tab-${exp.id}`}
-                aria-selected={isActive}
-                aria-controls="experience-panel"
-                className={`experience-rail__btn${isActive ? ' is-active' : ''}`}
-                onClick={() => setSelectedId(exp.id)}
+                tabIndex={isSelected ? 0 : -1}
+                aria-selected={isSelected}
+                aria-controls="career-panel"
+                onClick={() => selectTab(index)}
+                onKeyDown={(event) => handleKeyDown(event, index)}
               >
-                <span className="experience-rail__dot" aria-hidden />
-                <span className="experience-rail__period">{exp.period}</span>
-                <span className="experience-rail__company">{exp.company}</span>
-                <span className="experience-rail__title">{exp.title}</span>
-                <span className="experience-rail__loc">{exp.location}</span>
+                <span className="career-tab-year">{experience.period}</span>
+                <span className="career-tab-company">{experience.company}</span>
+                <span className="career-tab-role">{experience.title}</span>
+                <span className="career-tab-arrow" aria-hidden>
+                  →
+                </span>
               </button>
             )
           })}
         </div>
 
         <article
-          id="experience-panel"
+          id="career-panel"
+          className="career-panel"
           role="tabpanel"
-          aria-labelledby={`exp-tab-${selected.id}`}
-          className="github-readme-card experience-panel"
+          aria-labelledby={`career-tab-${selected.id}`}
           key={selected.id}
         >
-          <header className="experience-panel__head">
-            <h3 className="experience-panel__company">{selected.company}</h3>
-            <p className="experience-panel__role">{selected.title}</p>
-            <p className="experience-panel__meta">
-              <span>{selected.location}</span>
-              <span className="experience-panel__sep">·</span>
-              <span>{selected.period}</span>
-            </p>
-          </header>
-          <ul className={`exp-achievements ${selected.accent}`}>
-            {selected.highlights.map((text, i) => (
-              <li key={`${selected.id}-${i}`}>{text}</li>
+          <div className="career-panel-topline">
+            <span>Selected role</span>
+            <span>{selected.location}</span>
+          </div>
+          <p className="career-panel-period">{selected.period}</p>
+          <h3>{selected.title}</h3>
+          <p className="career-panel-company">{selected.company}</p>
+          <ul className="career-highlights">
+            {selected.highlights.map((highlight) => (
+              <li key={highlight}>{highlight}</li>
             ))}
           </ul>
         </article>
       </div>
 
-      <h3 className="readme-h3 experience-subheading">Education</h3>
-      <ul className="experience-edu-list">
-        {EDUCATION.map((row) => (
-          <li key={row.line}>{row.line}</li>
-        ))}
-      </ul>
+      <div className="credentials-grid">
+        <article className="credential-card fade-up">
+          <p className="credential-label">Education</p>
+          {EDUCATION.map((item) => (
+            <div className="education-row" key={item.degree}>
+              <h3>{item.degree}</h3>
+              <p>{item.school}</p>
+              <span>{item.meta}</span>
+            </div>
+          ))}
+        </article>
 
-      <h3 className="readme-h3 experience-subheading">Certifications</h3>
-      <ul className="experience-cert-list">
-        {CERTIFICATIONS.map((c) => (
-          <li key={c}>{c}</li>
-        ))}
-      </ul>
-    </div>
+        <article className="credential-card fade-up">
+          <p className="credential-label">Certifications</p>
+          <ul className="certification-list">
+            {CERTIFICATIONS.map((certification) => (
+              <li key={certification}>
+                <span aria-hidden>✓</span>
+                {certification}
+              </li>
+            ))}
+          </ul>
+        </article>
+      </div>
+    </>
   )
 }
