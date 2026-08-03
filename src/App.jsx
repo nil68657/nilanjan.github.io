@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import resumeUrl from '../Nilanjan_Principal_Data_Architect_Resume_v0.pdf?url'
 import { ExperienceTimeline } from './components/ExperienceTimeline'
 import { Navigation } from './components/Navigation'
 import { ProjectsSection } from './components/ProjectsSection'
@@ -149,7 +148,7 @@ export default function App() {
       </a>
       <div className="scroll-progress" aria-hidden />
       <div className="page-noise" aria-hidden />
-      <Navigation menuOpen={menuOpen} setMenuOpen={setMenuOpen} resumeUrl={resumeUrl} />
+      <Navigation menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
       <div ref={pageRef}>
         <main id="main-content">
@@ -175,8 +174,13 @@ export default function App() {
                     Explore my impact
                     <ArrowDown />
                   </a>
-                  <a className="button button-secondary" href={resumeUrl} download>
-                    Download résumé
+                  <a
+                    className="button button-secondary"
+                    href={PROFILE.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Connect on LinkedIn
                     <ArrowUpRight />
                   </a>
                 </div>
@@ -309,8 +313,8 @@ export default function App() {
                     GitHub
                     <ArrowUpRight />
                   </a>
-                  <a href={resumeUrl} download>
-                    Résumé
+                  <a href={PROFILE.leetcode} target="_blank" rel="noopener noreferrer">
+                    LeetCode
                     <ArrowUpRight />
                   </a>
                 </div>

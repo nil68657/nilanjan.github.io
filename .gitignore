@@ -1,6 +1,14 @@
 node_modules/
 dist/
 
+# Personal documents must remain local.
+*.pdf
+*.PDF
+**/*[Rr]esume*.doc
+**/*[Rr]esume*.docx
+**/*[Rr]esume*.odt
+**/*[Rr]esume*.rtf
+
 # Accidental Windows path copies / local assets
 C/
 attached_assets/

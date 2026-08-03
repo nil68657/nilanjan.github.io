@@ -1,6 +1,6 @@
 # Nilanjan Chatterjee — Portfolio
 
-A lightweight, responsive portfolio for a Principal Data Architect. Content is based on the included résumé and focuses on enterprise-scale data, AI, MLOps, governance, and platform outcomes.
+A lightweight, responsive portfolio for a Principal Data Architect, focused on enterprise-scale data, AI, MLOps, governance, and platform outcomes.
 
 ## Stack
 

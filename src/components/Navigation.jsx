@@ -16,7 +16,7 @@ function ArrowUpRight() {
   )
 }
 
-export function Navigation({ menuOpen, setMenuOpen, resumeUrl }) {
+export function Navigation({ menuOpen, setMenuOpen }) {
   const close = useCallback(() => setMenuOpen(false), [setMenuOpen])
 
   useEffect(() => {
@@ -51,8 +51,8 @@ export function Navigation({ menuOpen, setMenuOpen, resumeUrl }) {
           </ul>
 
           <div className="nav-actions">
-            <a className="nav-resume" href={resumeUrl} download>
-              Résumé
+            <a className="nav-resume" href="#contact">
+              Let’s talk
               <ArrowUpRight />
             </a>
             <button
@@ -82,8 +82,8 @@ export function Navigation({ menuOpen, setMenuOpen, resumeUrl }) {
               </a>
             ))}
           </div>
-          <a className="mobile-resume" href={resumeUrl} download onClick={close}>
-            Download résumé
+          <a className="mobile-resume" href="#contact" onClick={close}>
+            Start a conversation
             <ArrowUpRight />
           </a>
         </div>
