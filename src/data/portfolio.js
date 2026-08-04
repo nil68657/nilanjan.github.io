@@ -182,10 +182,11 @@ export const CAPABILITIES = [
 export const PROJECTS = [
   {
     index: '01',
-    title: 'Healthcare Claims Intelligence',
+    title: 'YouTube Clickbait Detection',
     description:
-      'An auto-refreshing data collection and analytics platform measuring claims success rates across healthcare providers.',
-    tags: ['Python', 'Scrapy', 'XGBoost', 'Airflow', 'Tableau'],
+      'A desktop application that summarizes YouTube captions with local Ollama models and compares the content with its title to identify clickbait.',
+    tags: ['Python', 'Tkinter', 'Ollama', 'yt-dlp'],
+    href: 'https://github.com/nil68657/Youtube_Clickbait_Detection',
   },
   {
     index: '02',
@@ -197,17 +198,27 @@ export const PROJECTS = [
   },
   {
     index: '03',
-    title: 'Multi-Class Image Segregation',
+    title: 'Indian Language Voice Translator',
     description:
-      'A deep-learning classification pipeline that automatically categorizes and labels unstructured images into fine-grained classes.',
-    tags: ['PyTorch', 'TensorFlow', 'Solr', 'Kafka', 'HBase'],
+      'Voice and audio translation for major Indian languages with modern FastAPI web and native Tkinter desktop interfaces.',
+    tags: ['Python', 'FastAPI', 'Speech Recognition', 'gTTS'],
+    href: 'https://github.com/nil68657/indian-language-translator',
   },
   {
     index: '04',
-    title: 'Distributed PageRank',
+    title: 'Make Money Last',
     description:
-      'Large-scale web graph analysis with custom mapper and reducer allocations running on Apache Spark and Hadoop.',
-    tags: ['Spark', 'Hadoop', 'Java', 'Lucene', 'ZooKeeper'],
+      'A relocation runway simulator that compares two cities and shows how long savings last under different cost-of-living assumptions.',
+    tags: ['TypeScript', 'Next.js', 'Data Visualization', 'Personal Finance'],
+    href: 'https://github.com/nil68657/make-money-last',
+  },
+  {
+    index: '05',
+    title: 'X Opinionate',
+    description:
+      'A Streamlit workspace for trend analysis, brand sentiment, and stance detection using Claude-assisted opinion-mining workflows.',
+    tags: ['Python', 'Streamlit', 'Claude', 'Plotly'],
+    href: 'https://github.com/nil68657/x-opinionate',
   },
 ]
 

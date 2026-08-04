@@ -2,8 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  // Relative assets work on both the GitHub project URL and a custom domain.
-  base: './',
+  // User-site repository and future custom domains are both served from root.
+  base: '/',
   plugins: [react()],
   build: {
     outDir: 'dist',

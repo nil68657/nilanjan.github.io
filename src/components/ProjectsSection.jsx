@@ -14,8 +14,8 @@ export function ProjectsSection() {
       <div className="section-shell">
         <div className="section-heading section-heading-split fade-up">
           <div>
-            <p className="section-kicker">Selected builds / Applied research</p>
-            <h2 id="projects-heading">Ideas made executable.</h2>
+            <p className="section-kicker">Pinned on GitHub / Open source</p>
+            <h2 id="projects-heading">Projects built for real use.</h2>
           </div>
           <a className="text-link" href={PROFILE.github} target="_blank" rel="noopener noreferrer">
             Explore GitHub
