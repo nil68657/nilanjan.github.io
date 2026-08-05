@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ExperienceTimeline } from './components/ExperienceTimeline'
+import { MandelbrotUnderlay } from './components/MandelbrotUnderlay'
 import { Navigation } from './components/Navigation'
 import { ProjectsSection } from './components/ProjectsSection'
 import { TechStackSection } from './components/TechStackSection'
@@ -146,11 +147,12 @@ export default function App() {
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
+      <MandelbrotUnderlay />
       <div className="scroll-progress" aria-hidden />
       <div className="page-noise" aria-hidden />
       <Navigation menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-      <div ref={pageRef}>
+      <div ref={pageRef} className="site-content">
         <main id="main-content">
           <header id="top" className="hero">
             <div className="hero-grid" aria-hidden />
@@ -166,8 +168,9 @@ export default function App() {
                   <span>built to compound.</span>
                 </h1>
                 <p className="hero-intro fade-up">
-                  I’m Nilanjan Chatterjee. I architect enterprise Lakehouse, Data Mesh, and AI platforms
-                  that turn complex, high-volume data into trusted products and measurable outcomes.
+                  I’m Nilanjan Chatterjee. I architect enterprise Lakehouse, multi-node GPU, and AI
+                  platforms that turn complex, high-volume data into trusted products and production
+                  intelligence.
                 </p>
                 <div className="hero-actions fade-up">
                   <a className="button button-primary" href="#impact">

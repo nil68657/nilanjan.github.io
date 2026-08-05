@@ -74,6 +74,7 @@ export const EXPERIENCES = [
       'Own AMD’s enterprise target-state architecture: a Unified Lakehouse with federated Data Mesh and Data Fabric overlays across silicon validation, manufacturing, automation, telemetry, and SaaS sources.',
       'Architected Kafka, OneHouse, Aerospike, Trino, Dremio, Spark, and Elasticsearch serving infrastructure sustaining sub-millisecond p9999 latency across 2 PB of quarterly data.',
       'Built agentic DataOps with Claude, OpenAI, LangChain, and LangGraph, reducing manual quality, monitoring, and anomaly triage by 60%.',
+      'Designed HPC patterns for multi-node GPU training and PEFT/LoRA fine-tuning on ROCm, with vLLM and TGI serving for production inference.',
       'Lead 12+ engineers and AI/ML scientists across Power Management, Performance Logging, Manufacturing, and Test Automation programs.',
     ],
   },
@@ -156,14 +157,16 @@ export const CAPABILITIES = [
   {
     number: '03',
     title: 'AI + MLOps',
-    description: 'Production AI systems with governed features, evaluation, observability, and efficient model serving.',
-    items: ['Claude', 'OpenAI', 'LangChain', 'LangGraph', 'MLflow', 'Feast', 'vLLM', 'BentoML'],
+    description:
+      'Production AI across governed features, GenAI/RAG and RLHF evaluation, PEFT/LoRA fine-tuning, and efficient vLLM/TGI inference.',
+    items: ['GenAI / RAG', 'LangGraph', 'RLHF', 'PEFT / LoRA', 'MLflow', 'Feast', 'vLLM / TGI', 'ROCm'],
   },
   {
     number: '04',
-    title: 'Cloud + scale',
-    description: 'Multi-cloud foundations shaped for latency, throughput, resilience, security, and ownership.',
-    items: ['AWS', 'GCP', 'Azure', 'Kubernetes', 'Terraform', 'Aerospike', 'Trino', 'Dremio'],
+    title: 'Cloud + GPU scale',
+    description:
+      'Multi-cloud and HPC foundations for multi-node GPU training, low-latency inference, resilience, security, and clear ownership.',
+    items: ['AWS', 'GCP', 'Azure', 'Kubernetes', 'HPC GPU clusters', 'ROCm', 'Aerospike', 'Trino'],
   },
   {
     number: '05',
