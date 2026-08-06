@@ -8,8 +8,9 @@ export function TechStackSection() {
           <p className="section-kicker">Expertise / Systems thinking</p>
           <h2 id="expertise-heading">Strategy that survives contact with production.</h2>
           <p>
-            I work across the full architecture surface—product intent, platform design, governance,
-            delivery, and the operating model that keeps it all healthy.
+            I work across the full architecture surface—product intent, platform design, governance, the
+            model lifecycle from GPU training to inference, and the operating model that keeps it all
+            healthy.
           </p>
         </div>
 
