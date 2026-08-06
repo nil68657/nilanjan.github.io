@@ -1,78 +1,138 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { CERTIFICATIONS, EDUCATION, EXPERIENCES } from '../data/portfolio'
 
-function useHorizontalTimeline() {
-  const [isHorizontal, setIsHorizontal] = useState(false)
+// The rail stacks vertically on desktop and scrolls horizontally below this width,
+// so the keyboard model and the arrow glyphs have to follow the rendered axis.
+const HORIZONTAL_RAIL_QUERY = '(max-width: 860px)'
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
+const LAST_INDEX = EXPERIENCES.length - 1
+
+function matchesQuery(query) {
+  return typeof window !== 'undefined' && window.matchMedia?.(query).matches === true
+}
+
+function Chevron() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden>
+      <path d="m6 3 5 5-5 5" />
+    </svg>
+  )
+}
+
+function useHorizontalRail() {
+  const [isHorizontal, setIsHorizontal] = useState(() => matchesQuery(HORIZONTAL_RAIL_QUERY))
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 860px)')
-    const updateOrientation = () => setIsHorizontal(mediaQuery.matches)
+    const query = window.matchMedia?.(HORIZONTAL_RAIL_QUERY)
+    if (!query) return undefined
 
-    updateOrientation()
-    mediaQuery.addEventListener('change', updateOrientation)
-    return () => mediaQuery.removeEventListener('change', updateOrientation)
+    const sync = () => setIsHorizontal(query.matches)
+    sync()
+    query.addEventListener('change', sync)
+    return () => query.removeEventListener('change', sync)
   }, [])
 
   return isHorizontal
 }
 
+function label(index) {
+  const experience = EXPERIENCES[index]
+  return `${experience.company}, ${experience.period}`
+}
+
 export function ExperienceTimeline() {
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [hasInteracted, setHasInteracted] = useState(false)
   const tabRefs = useRef([])
-  const isHorizontal = useHorizontalTimeline()
+  const isHorizontal = useHorizontalRail()
+
   const selected = EXPERIENCES[selectedIndex]
-  const newerExperience = EXPERIENCES[selectedIndex - 1]
-  const earlierExperience = EXPERIENCES[selectedIndex + 1]
+  const newerIndex = selectedIndex - 1
+  const olderIndex = selectedIndex + 1
+  const hasNewer = newerIndex >= 0
+  const hasOlder = olderIndex <= LAST_INDEX
 
-  const selectTab = (index, moveFocus = false) => {
-    const nextIndex = Math.max(0, Math.min(index, EXPERIENCES.length - 1))
+  // Roles are listed newest first, so a lower index is always more recent. Clamping
+  // instead of wrapping keeps the controls honest about where the timeline ends.
+  const select = useCallback((index, moveFocus = false) => {
+    const nextIndex = Math.min(Math.max(index, 0), LAST_INDEX)
     setSelectedIndex(nextIndex)
+    setHasInteracted(true)
     if (moveFocus) requestAnimationFrame(() => tabRefs.current[nextIndex]?.focus())
+  }, [])
+
+  const handleKeyDown = (event) => {
+    let nextIndex = null
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') nextIndex = selectedIndex + 1
+    else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') nextIndex = selectedIndex - 1
+    else if (event.key === 'Home') nextIndex = 0
+    else if (event.key === 'End') nextIndex = LAST_INDEX
+    if (nextIndex === null) return
+
+    event.preventDefault()
+    select(nextIndex, true)
   }
 
-  const handleKeyDown = (event, index) => {
-    const forwardKey = isHorizontal ? 'ArrowRight' : 'ArrowDown'
-    const backwardKey = isHorizontal ? 'ArrowLeft' : 'ArrowUp'
+  useEffect(() => {
+    if (!hasInteracted) return
+    const node = tabRefs.current[selectedIndex]
+    if (!node?.scrollIntoView) return
 
-    if (event.key === forwardKey) {
-      event.preventDefault()
-      selectTab(index + 1, true)
-    }
-    if (event.key === backwardKey) {
-      event.preventDefault()
-      selectTab(index - 1, true)
-    }
-    if (event.key === 'Home') {
-      event.preventDefault()
-      selectTab(0, true)
-    }
-    if (event.key === 'End') {
-      event.preventDefault()
-      selectTab(EXPERIENCES.length - 1, true)
-    }
-  }
+    node.scrollIntoView({
+      behavior: matchesQuery(REDUCED_MOTION_QUERY) ? 'auto' : 'smooth',
+      block: 'nearest',
+      inline: 'nearest',
+    })
+  }, [hasInteracted, selectedIndex])
 
   return (
     <>
       <div className="career-layout fade-up">
-        <div className="career-index">
-          <div className="career-index-heading">
-            <p>
-              Roles
-              <span>
-                Newest <i aria-hidden>{isHorizontal ? '→' : '↓'}</i> earliest
-              </span>
-            </p>
-            <span id="career-keyboard-hint">
-              {isHorizontal ? 'Use Left and Right arrow keys' : 'Use Up and Down arrow keys'}
-            </span>
+        <div className="career-rail">
+          <div className="career-rail-head">
+            <p className="career-rail-label">Timeline · newest first</p>
+            <div className="career-controls">
+              <p className="career-position" aria-hidden>
+                <strong>{String(selectedIndex + 1).padStart(2, '0')}</strong> /{' '}
+                {String(EXPERIENCES.length).padStart(2, '0')}
+              </p>
+              <div className="career-steps">
+                <button
+                  type="button"
+                  className="career-step career-step-newer"
+                  onClick={() => select(newerIndex)}
+                  disabled={!hasNewer}
+                  aria-label={
+                    hasNewer
+                      ? `Newer role: ${label(newerIndex)}`
+                      : 'Newer role unavailable, already showing the most recent'
+                  }
+                >
+                  <Chevron />
+                  <span>Newer</span>
+                </button>
+                <button
+                  type="button"
+                  className="career-step career-step-older"
+                  onClick={() => select(olderIndex)}
+                  disabled={!hasOlder}
+                  aria-label={
+                    hasOlder
+                      ? `Older role: ${label(olderIndex)}`
+                      : 'Older role unavailable, already showing the earliest'
+                  }
+                >
+                  <span>Older</span>
+                  <Chevron />
+                </button>
+              </div>
+            </div>
           </div>
 
           <div
             className="career-tabs"
             role="tablist"
-            aria-label="Professional experience, newest to earliest"
-            aria-describedby="career-keyboard-hint"
+            aria-label="Professional experience, newest first"
             aria-orientation={isHorizontal ? 'horizontal' : 'vertical'}
           >
             {EXPERIENCES.map((experience, index) => {
@@ -90,14 +150,14 @@ export function ExperienceTimeline() {
                   tabIndex={isSelected ? 0 : -1}
                   aria-selected={isSelected}
                   aria-controls="career-panel"
-                  onClick={() => selectTab(index)}
-                  onKeyDown={(event) => handleKeyDown(event, index)}
+                  onClick={() => select(index)}
+                  onKeyDown={handleKeyDown}
                 >
                   <span className="career-tab-year">{experience.period}</span>
                   <span className="career-tab-company">{experience.company}</span>
                   <span className="career-tab-role">{experience.title}</span>
-                  <span className="career-tab-arrow" aria-hidden>
-                    {isHorizontal ? '↓' : '→'}
+                  <span className="career-tab-marker" aria-hidden>
+                    <Chevron />
                   </span>
                 </button>
               )
@@ -111,48 +171,26 @@ export function ExperienceTimeline() {
           role="tabpanel"
           aria-labelledby={`career-tab-${selected.id}`}
           tabIndex={0}
-          key={selected.id}
         >
-          <div className="career-panel-topline">
-            <span>Selected role</span>
-            <span>{selected.location}</span>
-          </div>
-          <p className="career-panel-period">{selected.period}</p>
-          <h3>{selected.title}</h3>
-          <p className="career-panel-company">{selected.company}</p>
-          <ul className="career-highlights">
-            {selected.highlights.map((highlight) => (
-              <li key={highlight}>{highlight}</li>
-            ))}
-          </ul>
-
-          <div className="career-panel-navigation" aria-label="Browse roles chronologically">
-            <button
-              type="button"
-              disabled={!newerExperience}
-              onClick={() => selectTab(selectedIndex - 1, true)}
-              aria-label={newerExperience ? `Show newer role at ${newerExperience.company}` : 'This is the newest role'}
-            >
-              <span aria-hidden>{isHorizontal ? '←' : '↑'}</span>
-              Newer role
-            </button>
-            <p aria-label={`Role ${selectedIndex + 1} of ${EXPERIENCES.length}`}>
-              <strong>{String(selectedIndex + 1).padStart(2, '0')}</strong>
-              <span>/ {String(EXPERIENCES.length).padStart(2, '0')}</span>
-            </p>
-            <button
-              type="button"
-              disabled={!earlierExperience}
-              onClick={() => selectTab(selectedIndex + 1, true)}
-              aria-label={
-                earlierExperience ? `Show earlier role at ${earlierExperience.company}` : 'This is the earliest role'
-              }
-            >
-              Earlier role
-              <span aria-hidden>{isHorizontal ? '→' : '↓'}</span>
-            </button>
+          <div className="career-panel-inner" key={selected.id}>
+            <div className="career-panel-topline">
+              <span>Selected role</span>
+              <span>{selected.location}</span>
+            </div>
+            <p className="career-panel-period">{selected.period}</p>
+            <h3>{selected.title}</h3>
+            <p className="career-panel-company">{selected.company}</p>
+            <ul className="career-highlights">
+              {selected.highlights.map((highlight) => (
+                <li key={highlight}>{highlight}</li>
+              ))}
+            </ul>
           </div>
         </article>
+
+        <p className="visually-hidden" role="status">
+          {hasInteracted ? `Showing ${selected.title} at ${selected.company}, ${selected.period}.` : ''}
+        </p>
       </div>
 
       <div className="credentials-grid">
